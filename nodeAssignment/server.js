@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 // app.use(cors());
 //route
-app.use("/product", products);
+app.use("/api/products", products);
 
 const port = 5000;
 
