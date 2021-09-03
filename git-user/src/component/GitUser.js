@@ -4,6 +4,7 @@ import { Table, FormGroup, Form } from "reactstrap";
 import axios from "axios";
 import { Link, Button, IconButton, Input, Typography } from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import { useHistory } from "react-router-dom";
 
 const TableStyle = {
   textAlign: "center",
@@ -27,9 +28,21 @@ const TableStyle = {
 export const GitUserList = () => {
   const [userList, setUserList] = useState([]);
   const [user, setUser] = useState([]);
+  const history = useHistory();
   const fetchData = async () => {
     const res = await axios.get(" https://api.github.com/users");
     setUserList(res.data);
+  };
+
+  const onView = async (user) => {
+    // e.preventDefault();
+    const res = await axios.get(`https://api.github.com/users/${user}`);
+    console.log(res);
+    console.log(res.data);
+
+    localStorage.setItem("avatar_url", res.data.avatar_url);
+    localStorage.setItem("login", res.data.login);
+    history.push("/view");
   };
   const onSearch = async (e) => {
     e.preventDefault();
@@ -86,7 +99,14 @@ export const GitUserList = () => {
                 <td>
                   <Link href={row.repos_url}>{row.repos_url}</Link>
                 </td>
-                <IconButton color="secondary" size="small" variant="contained">
+                <IconButton
+                  color="secondary"
+                  size="small"
+                  variant="contained"
+                  onClick={(e) => {
+                    onView(row.login);
+                  }}
+                >
                   <VisibilityIcon />
                   View{" "}
                 </IconButton>

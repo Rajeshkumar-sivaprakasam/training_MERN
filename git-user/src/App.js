@@ -1,6 +1,7 @@
 import { Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
-import { GitUserList } from "./component/GitUset";
+import { GitUserList } from "./component/GitUser";
+import { GitUserView } from "./component/GituserView";
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       </Switch> */}
       <Switch>
         <Route exact path="/" component={GitUserList} />
-        {/* <Route path="/login" component={Login} /> */}
+        <Route path="/view" component={GitUserView} />
 
         <Redirect to="/" />
       </Switch>
