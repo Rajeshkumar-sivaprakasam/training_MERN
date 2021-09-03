@@ -53,6 +53,7 @@ export const GitUserList = () => {
     // console.log(res.data);
   };
   useEffect(() => {
+    localStorage.clear();
     fetchData();
   }, []);
   return (
