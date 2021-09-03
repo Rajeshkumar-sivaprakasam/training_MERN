@@ -52,10 +52,14 @@ export const GitUserList = () => {
     setUserList(res.data);
     // console.log(res.data);
   };
-  useEffect(() => {
-    localStorage.clear();
-    fetchData();
-  }, []);
+  useEffect(
+    () => {
+      localStorage.clear();
+      fetchData();
+    },
+    [],
+    onSearch
+  );
   return (
     <>
       <Typography variant="h3" style={{ marginBottom: 16 }}>
@@ -85,9 +89,9 @@ export const GitUserList = () => {
       <Table hover responsive style={TableStyle}>
         <thead>
           <tr>
-            <th>User Name</th>
-            <th>Repo</th>
-            <th></th>
+            <th>User Name</th>&emsp;
+            <th>Profile Picture</th>&emsp;
+            <th> View Full image</th>
           </tr>
         </thead>
         <tbody>
@@ -97,20 +101,24 @@ export const GitUserList = () => {
                 <td>
                   <Button color="danger">{row.login}</Button>
                 </td>
+                &emsp;
                 <td>
-                  <Link href={row.repos_url}>{row.repos_url}</Link>
+                  <img src={row.avatar_url} height="60px" width="60px" />
                 </td>
-                <IconButton
-                  color="secondary"
-                  size="small"
-                  variant="contained"
-                  onClick={(e) => {
-                    onView(row.login);
-                  }}
-                >
-                  <VisibilityIcon />
-                  View{" "}
-                </IconButton>
+                &emsp;
+                <td>
+                  <IconButton
+                    color="secondary"
+                    size="small"
+                    variant="contained"
+                    onClick={(e) => {
+                      onView(row.login);
+                    }}
+                  >
+                    <VisibilityIcon />
+                    View{" "}
+                  </IconButton>
+                </td>
               </tr>
             );
           })}
