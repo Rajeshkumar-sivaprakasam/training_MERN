@@ -37,8 +37,8 @@ export const GitUserList = () => {
   const onView = async (user) => {
     // e.preventDefault();
     const res = await axios.get(`https://api.github.com/users/${user}`);
-    console.log(res);
-    console.log(res.data);
+    // console.log(res);
+    // console.log(res.data);
 
     localStorage.setItem("avatar_url", res.data.avatar_url);
     localStorage.setItem("login", res.data.login);
@@ -48,9 +48,11 @@ export const GitUserList = () => {
     e.preventDefault();
     console.log(user.trim());
     // setUser("mojombo");
-    const res = await axios.get(`https://api.github.com/users/${user}`);
-    setUserList(res.data);
-    // console.log(res.data);
+    const res = await axios.get(
+      `https://api.github.com/search/users?q=${user}`
+    );
+    setUserList(res.data.items);
+    // console.log(res.data.items);
   };
   useEffect(
     () => {
